@@ -1,0 +1,12 @@
+EDITION - application mobile (PWA)
+
+1) Mettre ce dossier en ligne (gratuit) :
+   - Allez sur app.netlify.com/drop et glissez-y le dossier jds-app (ou le fichier zip décompressé).
+   - Vous obtenez une adresse https://xxxx.netlify.app
+
+2) Créer le fichier APK :
+   - Allez sur pwabuilder.com, collez l'adresse du site, cliquez "Start".
+   - Cliquez "Package for stores" > Android > "Generate Package".
+   - Téléchargez le zip : il contient l'APK à installer/partager (et un .aab pour Google Play).
+
+3) Sans APK : ouvrez l'adresse dans Chrome sur Android > menu > "Installer l'application".
