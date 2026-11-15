@@ -154,6 +154,7 @@ footer .brand{justify-content:center;color:var(--fg);margin-bottom:10px}
 <footer>
   <div class="wrap">
     <div class="brand"><svg viewBox="0 0 785 1085" width="20" aria-hidden="true"><use href="#drop"/></svg>EDITION</div>
+    <div style="font-size:12px">Version 1.0</div>
     <div>WhatsApp : +216 56 245 254</div>
     <div>© Développé par JDS - 2026</div>
   </div>
@@ -198,7 +199,7 @@ footer .brand{justify-content:center;color:var(--fg);margin-bottom:10px}
     if(!n){bar.classList.remove("on");return;}
     bar.classList.add("on");
     document.getElementById("sum").textContent=n+(n>1?" flacons":" flacon")+" · "+(n*PRICE)+" DT";
-    var msg="Bonjour EDITION, je souhaite commander :\n"+lines.join("\n")+"\nTotal : "+(n*PRICE)+" DT";
+    var msg="Bonjour EDITION, je souhaite commander :\n"+lines.join("\n")+"\nTotal : "+(n*PRICE)+" DT\n\nNom et prénom : \nAdresse : ";
     document.getElementById("send").href=wa(msg);
   }
   grid.addEventListener("click",function(e){
