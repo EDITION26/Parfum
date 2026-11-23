@@ -92,6 +92,10 @@ h2{font-family:var(--serif);font-weight:500;font-size:clamp(28px,4.5vw,42px);mar
 .perso .gal img{flex:0 0 auto;width:min(240px,62vw);height:auto;aspect-ratio:3/4;object-fit:cover;scroll-snap-align:start;background:var(--line)}
 .perso .gal:focus-visible{outline:2px solid var(--fg);outline-offset:3px}
 .perso .badge{display:inline-block;border:1px solid var(--fg);padding:4px 14px;font-size:13px;margin:0 0 16px}
+#snd{background:none;border:1px solid var(--line);color:var(--fg);width:36px;height:36px;border-radius:50%;margin-left:18px;cursor:pointer;vertical-align:middle;display:inline-flex;align-items:center;justify-content:center;padding:0}
+#snd[hidden]{display:none}
+#snd[aria-pressed="false"] .w{display:none}
+#snd[aria-pressed="true"] .x{display:none}
 footer{border-top:1px solid var(--line);padding:32px 0 120px;color:var(--mute);font-size:14px;text-align:center}
 footer .brand{justify-content:center;color:var(--fg);margin-bottom:10px}
 
@@ -121,7 +125,7 @@ footer .brand{justify-content:center;color:var(--fg);margin-bottom:10px}
 <div class="wrap">
   <header class="top">
     <a class="brand" href="#haut"><svg viewBox="0 0 785 1085" aria-hidden="true"><use href="#drop"/></svg>EDITION</a>
-    <nav aria-label="Navigation principale"><a href="#catalogue">Parfums</a><a href="#contact">Commander</a></nav>
+    <nav aria-label="Navigation principale"><a href="#catalogue">Parfums</a><a href="#contact">Commander</a><button id="snd" type="button" hidden aria-pressed="false" aria-label="Activer la musique"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9H4z"/><path class="w" d="M16 9a4 4 0 0 1 0 6M18.5 6.5a8 8 0 0 1 0 11"/><path class="x" d="M17 9l5 6M22 9l-5 6"/></svg></button></nav>
   </header>
 
   <div class="hero" id="haut">
@@ -264,6 +268,24 @@ footer .brand{justify-content:center;color:var(--fg);margin-bottom:10px}
     render();
   });
   render();
+})();
+</script>
+<script>
+(function(){
+  var btn=document.getElementById("snd"); if(!btn) return;
+  var a=new Audio("musique.mp3"); a.loop=true; a.volume=0.35; a.preload="none";
+  var want=false;
+  fetch("musique.mp3",{method:"HEAD"}).then(function(r){ if(r.ok) btn.hidden=false; }).catch(function(){});
+  function set(on){
+    want=on;
+    btn.setAttribute("aria-pressed",on?"true":"false");
+    btn.setAttribute("aria-label",on?"Couper la musique":"Activer la musique");
+    if(on){ var p=a.play(); if(p&&p.catch) p.catch(function(){ set(false); }); } else { a.pause(); }
+  }
+  btn.addEventListener("click",function(){ set(!want); });
+  document.addEventListener("visibilitychange",function(){
+    if(document.hidden){ a.pause(); } else if(want){ var p=a.play(); if(p&&p.catch) p.catch(function(){}); }
+  });
 })();
 </script>
 <script>if("serviceWorker"in navigator){addEventListener("load",function(){navigator.serviceWorker.register("sw.js").catch(function(){});});}</script>
